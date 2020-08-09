@@ -9,17 +9,18 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20200809132043 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE user ADD updated_at DATETIME DEFAULT NULL, ADD created_at DATETIME DEFAULT NULL');
+        $this->addSql('UPDATE  user SET updated_at =now(),  created_at =now()');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         $this->addSql('ALTER TABLE user DROP updated_at, DROP created_at');
     }

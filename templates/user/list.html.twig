@@ -6,6 +6,7 @@
             <th>Nazwa</th>
             <th>Email</th>
             <th>Czy włączony</th>
+            <th>Ostatnia zmiana</th>
         </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                         Wyłączony
                     {% endif %}
                 </td>
+                <td>{{ user.updatedAt|date }}</td>
             </tr>
         {% endfor %}
         </tbody>
