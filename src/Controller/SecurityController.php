@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+final class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login", name="user_login")
+     * @Route("/login", name="login")
      */
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
 
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
+            $user->setIsEnabled(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
