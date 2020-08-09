@@ -43,7 +43,6 @@ class User implements UserInterface
     /**
      * The below length depends on the "algorithm" you use for encoding
      * the password, but this works well with bcrypt.
-     *
      * @ORM\Column(type="string", length=64)
      */
     private $password;
@@ -52,10 +51,14 @@ class User implements UserInterface
      * @ORM\Column(type="array")
      */
     private $roles;
+    /** @var bool
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isEnabled;
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
     }
 
     // other properties and methods
@@ -114,5 +117,15 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function isEnabled(): bool
+    {
+        return (bool)$this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): void
+    {
+        $this->isEnabled = $isEnabled;
     }
 }
