@@ -283,7 +283,7 @@
                 </svg>
                 <h2>Logowanie</h2>
                 <a href="/login">
-                    {% if app.user == null %}
+                    {% if app.user is not null %}
                         Jesteś zalogowany, ten routing cię nie wpuści
                     {% else %}
                         Tu się możesz zalogować
@@ -297,7 +297,7 @@
                 </svg>
                 <h2>Rejestracja</h2>
                 <a href="/register">
-                    {% if app.user == null %}
+                    {% if app.user is not null %}
                         Jesteś zalogowany, ten routing cię nie wpuści
                     {% else %}
                         Tu się możesz zarejestrować
@@ -311,7 +311,7 @@
                 </svg>
                 <h2>Lista użytkowników</h2>
                 <a href="/user">
-                    {% if app.user == null %}
+                    {% if app.user is not null %}
                         Tu możesz manipulować użytkownikami
                     {% else %}
                         Jesteś zalogowany, ten routing cię nie wpuści
