@@ -1,5 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-
-{% endblock%}
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Email</th>
+            <th>Czy włączony</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username|e }}</td>
+                <td>{{ user.email|e }}</td>
+                <td>{% if user.isEnabled %}
+                        Włączony
+                    {% else %}
+                        Wyłączony
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if start>0 %}
+        <a href="/user/{{ max(start-10,0) }}">Poprzednie</a>
+    {% endif %}
+    {% if max>start+users|length %}
+        <a href="/user/{{ start+10 }}">Następne</a>
+    {% endif %}
+{% endblock %}

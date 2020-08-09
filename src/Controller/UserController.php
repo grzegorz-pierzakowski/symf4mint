@@ -25,6 +25,8 @@ final class UserController extends AbstractController
     {
         return $this->render('user/list.html.twig', [
             'start' => $start,
+            'users' => $this->manager->getRepository(User::class)->findBy([], ['id' => 'ASC'], 10, $start),
+            'max' => $this->manager->getRepository(User::class)->createQueryBuilder('t')->select('count(t.id)')->getQuery()->getSingleScalarResult(),
         ]);
     }
 
