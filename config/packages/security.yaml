@@ -12,11 +12,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            user_checker: App\Security\UserChecker
             provider: our_db_provider
             anonymous: lazy
             form_login:
                 login_path: login
                 check_path: login
+            logout:
+                path:   logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
