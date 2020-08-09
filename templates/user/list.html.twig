@@ -36,9 +36,10 @@
     $.ajax({
     method: 'PUT',
     url: '/user/'+$td.data('id'),
-    done: function(){
+    }).done(function(){
     window.location.reload();
-    }
-    })
+    }).fail(function(response){
+    alert(response.responseJSON.message);
+    });
     });
 {% endblock %}

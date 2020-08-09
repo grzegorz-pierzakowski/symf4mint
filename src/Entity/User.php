@@ -133,4 +133,9 @@ class User implements UserInterface
     {
         $this->isEnabled = $isEnabled;
     }
+
+    public function toggle(): void
+    {
+        $this->setIsEnabled(!$this->isEnabled);
+    }
 }

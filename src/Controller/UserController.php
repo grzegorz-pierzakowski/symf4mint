@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class UserController extends AbstractController
@@ -19,7 +20,7 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{start}", name="user_list", defaults={"start": 0})
+     * @Route("/user/{start}", name="user_list", defaults={"start": 0}, methods={"GET"})
      */
     public function listAction(int $start): Response
     {
@@ -36,6 +37,7 @@ final class UserController extends AbstractController
     public function enableAction(int $user): Response
     {
         $user = $this->manager->getRepository(User::class)->find($user);
+        if ($this->getUser() === $user) return new JsonResponse(['message' => 'Niew wyłączaj sam siebie'], Response::HTTP_NOT_ACCEPTABLE);
         $user->toggle();
         $this->manager->flush();
         return new JsonResponse(['message' => 'Zrobione']);
