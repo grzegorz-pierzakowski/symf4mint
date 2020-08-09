@@ -2,36 +2,40 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends AbstractController
+final class UserController extends AbstractController
 {
-    public function loginAction(AuthenticationUtils $authenticationUtils): Response
+    private $manager;
+
+    public function __construct(EntityManagerInterface $manager)
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $this->manager = $manager;
+    }
 
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
+    /**
+     * @Route("/user/{start}", name="user_list")
+     */
+    public function listAction(int $start): Response
+    {
+        return $this->render('user/list.html.twig', [
+            'start' => $start,
         ]);
     }
 
-    public function registerAction(): Response
-    {
-
-    }
-
-    public function listAction(): Response
-    {
-
-    }
-
+    /**
+     * @Route("/list/{user}", name="user_enable", methods={"PUT"})
+     */
     public function enableAction(int $user): Response
     {
-
+        $user = $this->manager->getRepository(User::class)->find($user);
+        $user->toggle();
+        $this->manager->flush();
+        return new JsonResponse(['message' => 'Zrobione']);
     }
 }
