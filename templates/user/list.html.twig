@@ -13,7 +13,7 @@
             <tr>
                 <td>{{ user.username|e }}</td>
                 <td>{{ user.email|e }}</td>
-                <td>{% if user.isEnabled %}
+                <td data-id="{{ user.id }}">{% if user.isEnabled %}
                         Włączony
                     {% else %}
                         Wyłączony
