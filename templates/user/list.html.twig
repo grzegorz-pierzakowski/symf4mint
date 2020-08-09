@@ -30,3 +30,15 @@
         <a href="/user/{{ start+10 }}">Następne</a>
     {% endif %}
 {% endblock %}
+{% block javascripts %}
+    $('td[data-id]').on('click', function(){
+    var $td = $(this);
+    $.ajax({
+    method: 'PUT',
+    url: '/user/'+$td.data('id'),
+    done: function(){
+    window.location.reload();
+    }
+    })
+    });
+{% endblock %}

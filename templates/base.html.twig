@@ -106,6 +106,10 @@
             margin-right: auto;
         }
 
+        table td[data-id] {
+            cursor: pointer;
+        }
+
         .welcome small {
             display: block;
             font-size: 85%;
@@ -333,6 +337,8 @@
         </div>
     </div>
 </div>
-{% block javascripts %}{% endblock %}
+<script>
+    {% block javascripts %}{% endblock %}
+</script>
 </body>
 </html>

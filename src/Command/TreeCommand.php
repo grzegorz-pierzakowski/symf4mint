@@ -28,7 +28,7 @@ final class TreeCommand extends Command implements ContainerAwareInterface
         $tree = json_decode(file_get_contents($tree), true);
         $list = json_decode(file_get_contents($list), true);
         $this->process($tree, $list);
-        $out = $input->getArgument('resultFilePath') ? $this->container->getParameter('kernel.project_dir') . '/var/out.json';
+        $out = $input->getArgument('resultFilePath') ?: $this->container->getParameter('kernel.project_dir') . '/var/out.json';
         file_put_contents($out, json_encode($tree));
     }
 

@@ -31,7 +31,7 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @Route("/list/{user}", name="user_enable", methods={"PUT"})
+     * @Route("/user/{user}", name="user_enable", methods={"PUT"})
      */
     public function enableAction(int $user): Response
     {
