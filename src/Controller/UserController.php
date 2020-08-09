@@ -19,7 +19,7 @@ final class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{start}", name="user_list")
+     * @Route("/user/{start}", name="user_list", defaults={"start": 0})
      */
     public function listAction(int $start): Response
     {
