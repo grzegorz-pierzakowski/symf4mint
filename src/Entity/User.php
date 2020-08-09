@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -55,6 +56,30 @@ class User implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isEnabled;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetimetz", nullable=false)
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetimetz", nullable=false)
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    public function setUpdatedAt(\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
 
     public function __construct()
     {
