@@ -46,7 +46,7 @@ final class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render(
