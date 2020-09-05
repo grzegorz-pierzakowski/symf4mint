@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class UserController extends AbstractController
@@ -38,6 +37,7 @@ final class UserController extends AbstractController
     {
         $user = $this->manager->getRepository(User::class)->find($user);
         if ($this->getUser() === $user) return new JsonResponse(['message' => 'Niew wyłączaj sam siebie'], Response::HTTP_NOT_ACCEPTABLE);
+        if ($this->manager->getRepository(User::class)->countActive() === 1) return new JsonResponse(['message' => 'To jest ostatni aktywny użytkownik'], Response::HTTP_NOT_ACCEPTABLE);
         $user->toggle();
         $this->manager->flush();
         return new JsonResponse(['message' => 'Zrobione']);
