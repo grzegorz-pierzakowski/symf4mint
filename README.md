@@ -10,3 +10,9 @@ Arguments:
  
 #Task2
 
+Please be advised that the CSS is copied from symfony start application page. The logout button is up.
+Therere are 15 dummy users:
+ user0, user2, ... user 14. All have the same password: demo.
+ 
+The pagination is made very simple <next> and <previous> only.
+ 
